@@ -108,10 +108,9 @@ public class FragSignInPhone extends Fragment {
                 binding.edtOTP.setError("Please enter OTP");
             }else if (otp.length() < 6){
                 binding.edtOTP.setError("Please enter enough 6 characters");
-            }else if(otp.equals("548386")){
+            }else{
                 credential = PhoneAuthProvider.getCredential(mVerificationId, otp);
                 signInWithPhoneAuthCredential(credential);
-
             }
 
         });
