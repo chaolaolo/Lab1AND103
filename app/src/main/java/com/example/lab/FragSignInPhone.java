@@ -75,7 +75,7 @@ public class FragSignInPhone extends Fragment {
 
             @Override
             public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-//                super.onCodeSent(s, forceResendingToken);
+                super.onCodeSent(s, forceResendingToken);
                 Log.d("TAG", "VerificationId(s): "+s);
                 mVerificationId = s;
                 mResendingToken=forceResendingToken;
@@ -109,14 +109,9 @@ public class FragSignInPhone extends Fragment {
             }else if (otp.length() < 6){
                 binding.edtOTP.setError("Please enter enough 6 characters");
             }else if(otp.equals("548386")){
-//                credential = PhoneAuthProvider.getCredential(mVerificationId, otp);
-//                signInWithPhoneAuthCredential(credential);
-                Toast.makeText(getActivity(), "Sign In Successfully", Toast.LENGTH_SHORT).show();
-                FragSignout fragSignout = new FragSignout();
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fr_signIn_Act, fragSignout);
-                transaction.addToBackStack(null);
-                transaction.commit();
+                credential = PhoneAuthProvider.getCredential(mVerificationId, otp);
+                signInWithPhoneAuthCredential(credential);
+
             }
 
         });
@@ -136,7 +131,11 @@ public class FragSignInPhone extends Fragment {
                         if (task.isSuccessful()) {
                             FirebaseUser user = task.getResult().getUser();
                             Toast.makeText(getActivity(), "Sign In Successfully", Toast.LENGTH_SHORT).show();
-
+//                            FragSignout fragSignout = new FragSignout();
+//                            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                            transaction.replace(R.id.fr_signIn_Act, fragSignout);
+//                            transaction.addToBackStack(null);
+//                            transaction.commit();
                         } else {
                             Log.d("TAG", "Sign In Failed", task.getException());
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
