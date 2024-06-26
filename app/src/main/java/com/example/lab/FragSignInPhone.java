@@ -10,7 +10,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.lab.databinding.FragSignInPhoneBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -77,9 +76,9 @@ public class FragSignInPhone extends Fragment {
             public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                 super.onCodeSent(s, forceResendingToken);
                 Log.d("TAG", "VerificationId(s): "+s);
+                Toast.makeText(getActivity(), "OTP sent successfully", Toast.LENGTH_SHORT).show();
                 mVerificationId = s;
                 mResendingToken=forceResendingToken;
-                Toast.makeText(getActivity(), "OTP sent successfully", Toast.LENGTH_SHORT).show();
             }
         };
 
@@ -100,6 +99,8 @@ public class FragSignInPhone extends Fragment {
                         .setCallbacks(mCallBacks)
                         .build();
                 PhoneAuthProvider.verifyPhoneNumber(options);
+                Log.d("TAG", "onViewCreated: "+options);
+                Log.d("TAG", "onViewCreated: "+mCallBacks);
             }
         });
         binding.btnSignInPhone.setOnClickListener(v -> {
@@ -111,6 +112,7 @@ public class FragSignInPhone extends Fragment {
             }else{
                 credential = PhoneAuthProvider.getCredential(mVerificationId, otp);
                 signInWithPhoneAuthCredential(credential);
+                Log.d("TAG", "credential: "+credential);
             }
 
         });

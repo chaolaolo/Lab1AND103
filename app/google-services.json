@@ -1,44 +1,64 @@
 {
   "project_info": {
-    "project_number": "836883223310",
-    "project_id": "lab1-cb354",
-    "storage_bucket": "lab1-cb354.appspot.com"
+    "project_number": "971927469348",
+    "project_id": "and103-e1b79",
+    "storage_bucket": "and103-e1b79.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:836883223310:android:6eec7081a763b88008fd5f",
+        "mobilesdk_app_id": "1:971927469348:android:4d7aef9f683c3abb0847b1",
         "android_client_info": {
-          "package_name": "com.example.lab"
+          "package_name": "com.example.demoverifyotp"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "836883223310-je8sjihuj2t02502u8cu4l361ktrjb1h.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.lab",
-            "certificate_hash": "c62d67c9091f1b5ae14460027253cada42905c1a"
-          }
-        },
-        {
-          "client_id": "836883223310-8jdhodrhupg9b6aeqtig76hpe4intb3g.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCXQQ-6eRsVpH_CuNHPszzmvgpBEZfmbZs"
+          "current_key": "AIzaSyDgEMOLfugb0VKoLqWLYT2juH2_-xHi2Xw"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "836883223310-8jdhodrhupg9b6aeqtig76hpe4intb3g.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:971927469348:android:942082dd313e09910847b1",
+        "android_client_info": {
+          "package_name": "com.example.lab"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgEMOLfugb0VKoLqWLYT2juH2_-xHi2Xw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:971927469348:android:52ecfc65c8c93c540847b1",
+        "android_client_info": {
+          "package_name": "com.example.lab1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgEMOLfugb0VKoLqWLYT2juH2_-xHi2Xw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
         }
       }
     }
