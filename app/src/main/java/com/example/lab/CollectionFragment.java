@@ -35,7 +35,6 @@ public class CollectionFragment extends Fragment {
             transaction.commit();
         });
         binding.txtLoginPhoneNum.setOnClickListener(v->{
-//            startActivity(new Intent(getActivity(),ActivitySignInPhone.class));
             FragSignInPhone fragSignInPhone = new FragSignInPhone();
             FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
             transaction.replace(R.id.fr_signIn_Act,fragSignInPhone);

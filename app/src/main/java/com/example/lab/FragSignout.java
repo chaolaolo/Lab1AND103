@@ -29,6 +29,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -63,7 +64,7 @@ public class FragSignout extends Fragment {
         recyclerView = view.findViewById(R.id.rcCountries);
         btnAdd = view.findViewById(R.id.btnAdd);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        Query query = db.collection("cities");
+        Query query = db.collection("cities").orderBy("timestamp",Query.Direction.ASCENDING);
         userAuth = FirebaseAuth.getInstance();
 
         FirestoreRecyclerOptions<CountryModel> options = new FirestoreRecyclerOptions.Builder<CountryModel>()
@@ -118,13 +119,43 @@ public class FragSignout extends Fragment {
                 if (price.isEmpty()) {
                     edtPrice.setError("Please enter shirt price!");
                     err = true;
+                } else {
+                    try {
+                        int priceNum = Integer.parseInt(price);
+                        if (priceNum <= 0) {
+                            edtPrice.setError("Please enter number > 0!");
+                            err = true;
+                        }
+                    } catch (NumberFormatException e) {
+                        edtPrice.setError("Please enter a valid price (number)!");
+                        err = true;
+                    }
                 }
                 if (quantity.isEmpty()) {
                     edtQuantity.setError("Please enter shirt quantity!");
                     err = true;
+                } else {
+                    try {
+                        int quan = Integer.parseInt(quantity);
+                        if (quan <= 0) {
+                            edtQuantity.setError("Please enter number > 0!");
+                            err = true;
+                        }
+                    } catch (NumberFormatException e) {
+                        edtQuantity.setError("Please enter a valid quantity (number)!");
+                        err = true;
+                    }
                 }
                 if (!err) {
-                    CountryModel countryModel = new CountryModel(linkimg, name, size, Integer.parseInt(price), Integer.parseInt(quantity));
+//                    CountryModel countryModel = new CountryModel(linkimg, name, size, Integer.parseInt(price), Integer.parseInt(quantity));
+                    Map<String, Object> countryModel = new HashMap<>();
+                    countryModel.put("name", name);
+                    countryModel.put("size", size);
+                    countryModel.put("price", Integer.parseInt(price));
+                    countryModel.put("quantity", Integer.parseInt(quantity));
+                    countryModel.put("image", linkimg);
+                    countryModel.put("timestamp", FieldValue.serverTimestamp());
+
                     db.collection("cities")
                             .add(countryModel)
                             .addOnSuccessListener(documentReference -> {

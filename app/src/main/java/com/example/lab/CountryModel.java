@@ -1,10 +1,12 @@
 package com.example.lab;
 
-import java.util.List;
+
+import java.util.Date;
 
 public class CountryModel {
    private String id,image,name,size;
    private int quantity,price;
+    private Date timestamp;
 
     public CountryModel() {
     }
@@ -16,6 +18,15 @@ public class CountryModel {
         this.size = size;
         this.quantity = quantity;
         this.price = price;
+    }
+
+    public CountryModel(String image, String name, String size, int quantity, int price, Date timestamp) {
+        this.image = image;
+        this.name = name;
+        this.size = size;
+        this.quantity = quantity;
+        this.price = price;
+        this.timestamp = timestamp;
     }
 
     public CountryModel(String image, String name, String size, int quantity, int price) {
@@ -73,4 +84,9 @@ public class CountryModel {
     public void setPrice(int price) {
         this.price = price;
     }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
+
 }

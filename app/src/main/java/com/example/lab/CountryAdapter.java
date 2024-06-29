@@ -52,12 +52,8 @@ public class CountryAdapter extends FirestoreRecyclerAdapter<CountryModel, Count
 
         holder.btnDelete.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
-//            LayoutInflater inflater = LayoutInflater.from(context);
-//            View dialogView = inflater.inflate(R.layout.dialog, null);
-//            builder.setView(dialogView);
-//            AlertDialog dialog = builder.create();
             builder.setTitle("Delete Item");
-            builder.setMessage("Are you sure to delete " + model.getName() + "?");
+            builder.setMessage("Are you sure to delete '" + model.getName() + "'?");
             builder.setNegativeButton("NO", (dialog, which) -> {
                 dialog.dismiss();
             });
@@ -154,10 +150,32 @@ public class CountryAdapter extends FirestoreRecyclerAdapter<CountryModel, Count
                     if (price.isEmpty()) {
                         edtPrice.setError("Please enter shirt price!");
                         err = true;
+                    } else {
+                        try {
+                            int priceNum = Integer.parseInt(price);
+                            if (priceNum <= 0) {
+                                edtPrice.setError("Please enter number > 0!");
+                                err = true;
+                            }
+                        } catch (NumberFormatException e) {
+                            edtPrice.setError("Please enter a valid price (number)!");
+                            err = true;
+                        }
                     }
                     if (quantity.isEmpty()) {
                         edtQuantity.setError("Please enter shirt quantity!");
                         err = true;
+                    } else {
+                        try {
+                            int quan = Integer.parseInt(quantity);
+                            if (quan <= 0) {
+                                edtQuantity.setError("Please enter number > 0!");
+                                err = true;
+                            }
+                        } catch (NumberFormatException e) {
+                            edtQuantity.setError("Please enter a valid quantity (number)!");
+                            err = true;
+                        }
                     }
                     if (!err) {
                         Map<String, Object> updates = new HashMap<>();
@@ -169,11 +187,11 @@ public class CountryAdapter extends FirestoreRecyclerAdapter<CountryModel, Count
                         db.collection("cities").document(documentId)
                                 .update(updates)
                                 .addOnSuccessListener(documentReference -> {
-                                    Toast.makeText(context, "Add successfully", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, "Update successfully", Toast.LENGTH_SHORT).show();
                                     dialog.dismiss();
                                 })
                                 .addOnFailureListener(e -> {
-                                    Toast.makeText(context, "Error adding item!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, "Error updating item!", Toast.LENGTH_SHORT).show();
                                 });
                     }
 
