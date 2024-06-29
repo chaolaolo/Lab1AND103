@@ -46,4 +46,7 @@ dependencies {
     implementation("com.google.firebase:firebase-auth:23.0.0")
     implementation("com.google.firebase:firebase-analytics:22.0.2")
     implementation("com.google.android.gms:play-services-auth:21.2.0")
+    implementation("com.google.firebase:firebase-firestore")
+    implementation ("com.firebaseui:firebase-ui-firestore:8.0.0")
+    implementation ("com.squareup.picasso:picasso:2.71828")
 }

@@ -18,6 +18,7 @@ import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthMissingActivityForRecaptchaException;
 import com.google.firebase.auth.FirebaseUser;
@@ -48,7 +49,6 @@ public class FragSignInPhone extends Fragment {
 
         userAuth = FirebaseAuth.getInstance();
         mCallBacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-
             @Override
             public void onVerificationCompleted(@NonNull PhoneAuthCredential credential) {
                 Log.d("TAG", "Verification Completed with credential: " + credential);
@@ -67,8 +67,14 @@ public class FragSignInPhone extends Fragment {
                 } else if(e instanceof FirebaseAuthMissingActivityForRecaptchaException){
                     Log.e("TAG", "Verification failed", e);
                     Toast.makeText(getActivity(), "Verification null activity: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                }else {
-                    Log.e("TAG", "Verification failed", e);
+                } else if (e instanceof FirebaseAuthMissingActivityForRecaptchaException) {
+                    Log.e("TAG", "không được cấu hình reCAPTCHA correctly:", e);
+                    Toast.makeText(getActivity(), "không được cấu hình reCAPTCHA correctly.: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                } else if (e instanceof FirebaseAuthException) {
+                    // Các lỗi liên quan đến xác thực khác
+                    Log.e("TAG", "Auth exception: " + e.getMessage());
+                } else {
+                    Log.e("TAG", "Verification failed (else)", e);
                 }
             }
 
@@ -89,11 +95,10 @@ public class FragSignInPhone extends Fragment {
                 binding.edtPhoneNumber.setError("Please enter your phone number");
             }
             else if (!isValidPhoneNumber(phoneNumber)) {
-                binding.edtPhoneNumber.setError("Please enter start +84 and just 9-10 numbers");
+                binding.edtPhoneNumber.setError("Please enter a valid phone number with 9-10 digits");
             }else{
-                Toast.makeText(getActivity(), "OTP sent, please check your phone SMS", Toast.LENGTH_SHORT).show();
                 PhoneAuthOptions options = PhoneAuthOptions.newBuilder(userAuth)
-                        .setPhoneNumber(phoneNumber)
+                        .setPhoneNumber("+84" + phoneNumber)
                         .setTimeout(60L, TimeUnit.SECONDS)
                         .setActivity(requireActivity())
                         .setCallbacks(mCallBacks)
@@ -120,7 +125,7 @@ public class FragSignInPhone extends Fragment {
     }
 
     public boolean isValidPhoneNumber(String phoneNumber) {
-        String phoneNumberPattern = "^\\+84[0-9]{9,10}$";
+        String phoneNumberPattern = "^[0-9]{9,10}$";
         return phoneNumber.matches(phoneNumberPattern);
     }
 

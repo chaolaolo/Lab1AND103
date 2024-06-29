@@ -21,7 +21,8 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fr_signIn_Act,new CollectionFragment()).commit();
+//        getSupportFragmentManager().beginTransaction().replace(R.id.fr_signIn_Act,new CollectionFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fr_signIn_Act,new FragSignout()).commit();
 
     }
 }
